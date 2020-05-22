@@ -350,7 +350,7 @@ public class ArrayBlockingQueue<E> extends AbstractQueue<E>
         lock.lockInterruptibly();
         try {
             while (count == items.length)
-                notFull.await();//如果队列满了，则线程阻塞等待
+                notFull.await();//濡傛灉闃熷垪婊′簡锛屽垯绾跨▼闃诲绛夊緟
             enqueue(e);
         } finally {
             lock.unlock();

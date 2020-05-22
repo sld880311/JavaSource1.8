@@ -113,8 +113,8 @@ public final class String
     Comparable<String>, CharSequence {
     /** The value is used for character storage. */
 	/**
-	 * String Ê¹ÓÃfinal ĞŞÊÎµÄ×Ö·ûÊı×é½øĞĞ´æ´¢£¬
-	 * ²¢ÇÒ×Ö·û´®µÄ³¤¶ÈºÍÊÇ·ñÎª¿Õ¶¼ÊÇÍ¨¹ı¸ÃÊı×éµÄ³¤¶ÈÅĞ¶Ï
+	 * String ä½¿ç”¨final ä¿®é¥°çš„å­—ç¬¦æ•°ç»„è¿›è¡Œå­˜å‚¨ï¼Œ
+	 * å¹¶ä¸”å­—ç¬¦ä¸²çš„é•¿åº¦å’Œæ˜¯å¦ä¸ºç©ºéƒ½æ˜¯é€šè¿‡è¯¥æ•°ç»„çš„é•¿åº¦åˆ¤æ–­
 	 */
     private final char value[];
 
@@ -581,7 +581,7 @@ public final class String
      *         A {@code StringBuffer}
      */
     public String(StringBuffer buffer) {
-        synchronized(buffer) {// Ïß³Ì°²È«
+        synchronized(buffer) {// çº¿ç¨‹å®‰å…¨
             this.value = Arrays.copyOf(buffer.getValue(), buffer.length());
         }
     }
@@ -601,7 +601,7 @@ public final class String
      *
      * @since  1.5
      */
-    public String(StringBuilder builder) {// ·ÇÏß³Ì°²È«
+    public String(StringBuilder builder) {// éçº¿ç¨‹å®‰å…¨
         this.value = Arrays.copyOf(builder.getValue(), builder.length());
     }
 
@@ -620,7 +620,7 @@ public final class String
      * Returns the length of this string.
      * The length is equal to the number of <a href="Character.html#unicode">Unicode
      * code units</a> in the string.
-     * ·µ»Ø×Ö·û´®µÄ³¤¶È£¬³¤¶ÈµÈÓÚ×Ö·û´®ÖĞµÄUnicode´úÂëµ¥ÔªµÄÊıÄ¿£¨UTF-16µÄ´úÂëµ¥ÔªµÄÊıÄ¿£©
+     * è¿”å›å­—ç¬¦ä¸²çš„é•¿åº¦ï¼Œé•¿åº¦ç­‰äºå­—ç¬¦ä¸²ä¸­çš„Unicodeä»£ç å•å…ƒçš„æ•°ç›®ï¼ˆUTF-16çš„ä»£ç å•å…ƒçš„æ•°ç›®ï¼‰
      *
      * @return  the length of the sequence of characters represented by this
      *          object.
@@ -745,7 +745,7 @@ public final class String
      * is larger than the length of this {@code String}, or
      * {@code beginIndex} is larger than {@code endIndex}.
      * @since  1.5
-     * ¿ÉÒÔÊ¹ÓÃ¸Ã·½·¨·µ»Ø×Ö·û´®µÄ×¼È·³¤¶È£¨Ïà¶ÔÓÚlength·½·¨£©
+     * å¯ä»¥ä½¿ç”¨è¯¥æ–¹æ³•è¿”å›å­—ç¬¦ä¸²çš„å‡†ç¡®é•¿åº¦ï¼ˆç›¸å¯¹äºlengthæ–¹æ³•ï¼‰
      */
     public int codePointCount(int beginIndex, int endIndex) {
         if (beginIndex < 0 || endIndex > value.length || beginIndex > endIndex) {
@@ -979,21 +979,21 @@ public final class String
      *
      * @see  #compareTo(String)
      * @see  #equalsIgnoreCase(String)
-     * ÅĞ¶Ï¶ÔÏó´æ´¢ÄÚÈİÊÇ·ñÏàÍ¬
+     * åˆ¤æ–­å¯¹è±¡å­˜å‚¨å†…å®¹æ˜¯å¦ç›¸åŒ
      */
     public boolean equals(Object anObject) {
-        if (this == anObject) {// Ê×ÏÈÅĞ¶ÏÊÇ·ñÊôÓÚÍ¬Ò»¶ÔÏó
+        if (this == anObject) {// é¦–å…ˆåˆ¤æ–­æ˜¯å¦å±äºåŒä¸€å¯¹è±¡
             return true;
         }
         if (anObject instanceof String) {
-        	// ÀàĞÍString----³¤¶È---Êı×éÖĞµÄ×Ö·û
+        	// ç±»å‹String----é•¿åº¦---æ•°ç»„ä¸­çš„å­—ç¬¦
             String anotherString = (String)anObject;
             int n = value.length;
             if (n == anotherString.value.length) {
                 char v1[] = value;
                 char v2[] = anotherString.value;
                 int i = 0;
-                while (n-- != 0) {// ÅĞ¶Ï²»µÈ
+                while (n-- != 0) {// åˆ¤æ–­ä¸ç­‰
                     if (v1[i] != v2[i])
                         return false;
                     i++;
@@ -1160,26 +1160,26 @@ public final class String
      *          lexicographically greater than the string argument.
      */
     /**
-     * 1. ±È½Ï×Ö·û´®´óĞ¡£¬ÒòÎªStringÊµÏÖÁËComparable<String>½Ó¿Ú£¬ËùÓĞÖØĞ´ÁËcompareTo·½·¨
-     * 2. ·µ»ØintÀàĞÍ£¬ÕıÊıÎª´ó£¬¸ºÊıÎªĞ¡£¬»ùÓÚ×Ö·ûµÄASSICÂë±È½Ï
+     * 1. æ¯”è¾ƒå­—ç¬¦ä¸²å¤§å°ï¼Œå› ä¸ºStringå®ç°äº†Comparable<String>æ¥å£ï¼Œæ‰€æœ‰é‡å†™äº†compareToæ–¹æ³•
+     * 2. è¿”å›intç±»å‹ï¼Œæ­£æ•°ä¸ºå¤§ï¼Œè´Ÿæ•°ä¸ºå°ï¼ŒåŸºäºå­—ç¬¦çš„ASSICç æ¯”è¾ƒ
      */
     public int compareTo(String anotherString) {
         int len1 = value.length;
         int len2 = anotherString.value.length;
-        int lim = Math.min(len1, len2); //»ñÈ¡³¤¶È±È½ÏĞ¡µÄ×Ö·û´®³¤¶È
+        int lim = Math.min(len1, len2); //è·å–é•¿åº¦æ¯”è¾ƒå°çš„å­—ç¬¦ä¸²é•¿åº¦
         char v1[] = value;
         char v2[] = anotherString.value;
 
         int k = 0;
-        while (k < lim) { //µ±Ç°Ë÷ÒıĞ¡ÓÚÁ½¸ö×Ö·û´®ÖĞ³¤¶È½ÏĞ¡µÄ×Ö·û´®³¤¶ÈÊ±£¬Ñ­»·¼ÌĞø
+        while (k < lim) { //å½“å‰ç´¢å¼•å°äºä¸¤ä¸ªå­—ç¬¦ä¸²ä¸­é•¿åº¦è¾ƒå°çš„å­—ç¬¦ä¸²é•¿åº¦æ—¶ï¼Œå¾ªç¯ç»§ç»­
             char c1 = v1[k];
             char c2 = v2[k];
             if (c1 != c2) {
-                return c1 - c2; //´ÓÇ°Ïòºó±éÀú£¬ÓĞÒ»¸ö×Ö·û²»ÏàÍ¬£¬·µ»Ø²îÖµ
+                return c1 - c2; //ä»å‰å‘åéå†ï¼Œæœ‰ä¸€ä¸ªå­—ç¬¦ä¸ç›¸åŒï¼Œè¿”å›å·®å€¼
             }
             k++;
         }
-        return len1 - len2; //Èç¹û±éÀú½áÊø£¬¶¼ÏàÍ¬£¬±È½ÏÁ½¸ö×Ö·û´®³¤¶È
+        return len1 - len2; //å¦‚æœéå†ç»“æŸï¼Œéƒ½ç›¸åŒï¼Œæ¯”è¾ƒä¸¤ä¸ªå­—ç¬¦ä¸²é•¿åº¦
     }
 
     /**
@@ -2075,22 +2075,22 @@ public final class String
      * @param   newChar   the new character.
      * @return  a string derived from this string by replacing every
      *          occurrence of {@code oldChar} with {@code newChar}.
-     *          Èç¹ûÃ»ÓĞ·¢ÉúÌæ»»Ôò·µ»Øthis£¬·ñÔò·µ»Ønew String(...)
+     *          å¦‚æœæ²¡æœ‰å‘ç”Ÿæ›¿æ¢åˆ™è¿”å›thisï¼Œå¦åˆ™è¿”å›new String(...)
      */
     public String replace(char oldChar, char newChar) {
         if (oldChar != newChar) {
             int len = value.length;
             int i = -1;
-            // ¶¨ÒåÁÙÊ±±äÁ¿
+            // å®šä¹‰ä¸´æ—¶å˜é‡
             char[] val = value; /* avoid getfield opcode */
 
-            while (++i < len) {// ¶¨Î»µÚÒ»¸öĞèÒªÌæ»»µÄÎ»ÖÃ
+            while (++i < len) {// å®šä½ç¬¬ä¸€ä¸ªéœ€è¦æ›¿æ¢çš„ä½ç½®
                 if (val[i] == oldChar) {
                     break;
                 }
             }
-            if (i < len) {// ´ÓĞèÒªÌæ»»µÄÎ»ÖÃ¿ªÊ¼±È¶ÔÌæ»»
-            	// Èç¹ûĞèÒªÌæ»»Ôò¸³ÖµÌæ»»ºóµÄ×Ö·û£¬Èç¹û²»ĞèÒªÔòÊ¹ÓÃÔ­ÓĞ×Ö·û
+            if (i < len) {// ä»éœ€è¦æ›¿æ¢çš„ä½ç½®å¼€å§‹æ¯”å¯¹æ›¿æ¢
+            	// å¦‚æœéœ€è¦æ›¿æ¢åˆ™èµ‹å€¼æ›¿æ¢åçš„å­—ç¬¦ï¼Œå¦‚æœä¸éœ€è¦åˆ™ä½¿ç”¨åŸæœ‰å­—ç¬¦
                 char buf[] = new char[len];
                 for (int j = 0; j < i; j++) {
                     buf[j] = val[j];
@@ -2913,9 +2913,9 @@ public final class String
     public char[] toCharArray() {
         // Cannot use Arrays.copyOf because of class initialization order issues
     	/**
-    	 * 1. String ºÍArrays ¶¼ÊôÓÚrt.jarÖĞµÄÀà£¬µ«ÊÇBootstrapClassloaderÔÚ¼ÓÔØÕâÁ½¸öÀàµÄË³ĞòÊÇ²»Í¬µÄ¡£
-    	 * 2. ËùÒÔµ±String.class±»¼ÓÔØ½øÄÚ´æµÄÊ±ºò,Arrays´ËÊ±Ã»ÓĞ±»¼ÓÔØ£¬ËùÒÔÖ±½ÓÊ¹ÓÃ¿Ï¶¨»áÅ×Òì³£¡£
-    	 * 3. ¶øSystem.arrayCopyÊÇÊ¹ÓÃnative´úÂë£¬Ôò²»»áÓĞÕâ¸öÎÊÌâ¡£
+    	 * 1. String å’ŒArrays éƒ½å±äºrt.jarä¸­çš„ç±»ï¼Œä½†æ˜¯BootstrapClassloaderåœ¨åŠ è½½è¿™ä¸¤ä¸ªç±»çš„é¡ºåºæ˜¯ä¸åŒçš„ã€‚
+    	 * 2. æ‰€ä»¥å½“String.classè¢«åŠ è½½è¿›å†…å­˜çš„æ—¶å€™,Arraysæ­¤æ—¶æ²¡æœ‰è¢«åŠ è½½ï¼Œæ‰€ä»¥ç›´æ¥ä½¿ç”¨è‚¯å®šä¼šæŠ›å¼‚å¸¸ã€‚
+    	 * 3. è€ŒSystem.arrayCopyæ˜¯ä½¿ç”¨nativeä»£ç ï¼Œåˆ™ä¸ä¼šæœ‰è¿™ä¸ªé—®é¢˜ã€‚
     	 */
         char result[] = new char[value.length];
         System.arraycopy(value, 0, result, 0, value.length);
