@@ -269,14 +269,14 @@ public class ReentrantLock implements Lock, java.io.Serializable {
 
     /**
      * Acquires the lock.
-     * 1.Èç¹û¸ÃËøÃ»ÓĞ±»ÁíÒ»¸öÏß³Ì±£³Ö£¬Ôò»ñÈ¡¸ÃËø²¢Á¢¼´·µ»Ø£¬½«ËøµÄ±£³Ö¼ÆÊıÉèÖÃÎª 1
+     * 1.å¦‚æœè¯¥é”æ²¡æœ‰è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿æŒï¼Œåˆ™è·å–è¯¥é”å¹¶ç«‹å³è¿”å›ï¼Œå°†é”çš„ä¿æŒè®¡æ•°è®¾ç½®ä¸º 1
      * <p>Acquires the lock if it is not held by another thread and returns
      * immediately, setting the lock hold count to one.
-     * 2.Èç¹ûµ±Ç°Ïß³ÌÒÑ¾­±£³Ö¸ÃËø£¬Ôò½«±£³Ö¼ÆÊı¼Ó 1£¬²¢ÇÒ¸Ã·½·¨Á¢¼´·µ»Ø
+     * 2.å¦‚æœå½“å‰çº¿ç¨‹å·²ç»ä¿æŒè¯¥é”ï¼Œåˆ™å°†ä¿æŒè®¡æ•°åŠ  1ï¼Œå¹¶ä¸”è¯¥æ–¹æ³•ç«‹å³è¿”å›
      * <p>If the current thread already holds the lock then the hold
      * count is incremented by one and the method returns immediately.
-     * 3.Èç¹û¸ÃËø±»ÁíÒ»¸öÏß³Ì±£³Ö£¬Ôò³öÓÚÏß³Ìµ÷¶ÈµÄÄ¿µÄ£¬½ûÓÃµ±Ç°Ïß³Ì£¬
-     *            ²¢ÇÒÔÚ»ñµÃËøÖ®Ç°£¬¸ÃÏß³Ì½«Ò»Ö±´¦ÓÚĞİÃß×´Ì¬£¬´ËÊ±Ëø±£³Ö¼ÆÊı±»ÉèÖÃÎª 1
+     * 3.å¦‚æœè¯¥é”è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿æŒï¼Œåˆ™å‡ºäºçº¿ç¨‹è°ƒåº¦çš„ç›®çš„ï¼Œç¦ç”¨å½“å‰çº¿ç¨‹ï¼Œ
+     *            å¹¶ä¸”åœ¨è·å¾—é”ä¹‹å‰ï¼Œè¯¥çº¿ç¨‹å°†ä¸€ç›´å¤„äºä¼‘çœ çŠ¶æ€ï¼Œæ­¤æ—¶é”ä¿æŒè®¡æ•°è¢«è®¾ç½®ä¸º 1
      * <p>If the lock is held by another thread then the
      * current thread becomes disabled for thread scheduling
      * purposes and lies dormant until the lock has been acquired,
@@ -287,41 +287,41 @@ public class ReentrantLock implements Lock, java.io.Serializable {
     }
 
     /**
-     * 1.Èç¹ûµ±Ç°Ïß³ÌÎ´±»ÖĞ¶Ï£¬Ôò»ñÈ¡Ëø¡£ 
+     * 1.å¦‚æœå½“å‰çº¿ç¨‹æœªè¢«ä¸­æ–­ï¼Œåˆ™è·å–é”ã€‚ 
      * Acquires the lock unless the current thread is
      * {@linkplain Thread#interrupt interrupted}.
      *
-     * 2.Èç¹û¸ÃËøÃ»ÓĞ±»ÁíÒ»¸öÏß³Ì±£³Ö£¬Ôò»ñÈ¡¸ÃËø²¢Á¢¼´·µ»Ø£¬½«ËøµÄ±£³Ö¼ÆÊıÉèÖÃÎª 1¡£ 
+     * 2.å¦‚æœè¯¥é”æ²¡æœ‰è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿æŒï¼Œåˆ™è·å–è¯¥é”å¹¶ç«‹å³è¿”å›ï¼Œå°†é”çš„ä¿æŒè®¡æ•°è®¾ç½®ä¸º 1ã€‚ 
      * <p>Acquires the lock if it is not held by another thread and returns
      * immediately, setting the lock hold count to one.
      *
-     * 3.Èç¹ûµ±Ç°Ïß³ÌÒÑ¾­±£³Ö´ËËø£¬Ôò½«±£³Ö¼ÆÊı¼Ó 1£¬²¢ÇÒ¸Ã·½·¨Á¢¼´·µ»Ø¡£ 
+     * 3.å¦‚æœå½“å‰çº¿ç¨‹å·²ç»ä¿æŒæ­¤é”ï¼Œåˆ™å°†ä¿æŒè®¡æ•°åŠ  1ï¼Œå¹¶ä¸”è¯¥æ–¹æ³•ç«‹å³è¿”å›ã€‚ 
      * <p>If the current thread already holds this lock then the hold count
      * is incremented by one and the method returns immediately.
      *
-     * 4.Èç¹ûËø±»ÁíÒ»¸öÏß³Ì±£³Ö£¬Ôò³öÓÚÏß³Ìµ÷¶ÈÄ¿µÄ£¬½ûÓÃµ±Ç°Ïß³Ì£¬²¢ÇÒÔÚ·¢ÉúÒÔÏÂÁ½ÖÖÇé¿öÖ®Ò»ÒÔÇ°£¬¸ÃÏß³Ì½«Ò»Ö±´¦ÓÚĞİÃß×´Ì¬£º 
+     * 4.å¦‚æœé”è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿æŒï¼Œåˆ™å‡ºäºçº¿ç¨‹è°ƒåº¦ç›®çš„ï¼Œç¦ç”¨å½“å‰çº¿ç¨‹ï¼Œå¹¶ä¸”åœ¨å‘ç”Ÿä»¥ä¸‹ä¸¤ç§æƒ…å†µä¹‹ä¸€ä»¥å‰ï¼Œè¯¥çº¿ç¨‹å°†ä¸€ç›´å¤„äºä¼‘çœ çŠ¶æ€ï¼š 
      * <p>If the lock is held by another thread then the
      * current thread becomes disabled for thread scheduling
      * purposes and lies dormant until one of two things happens:
      *
      * <ul>
-     * 4.1ËøÓÉµ±Ç°Ïß³Ì»ñµÃ
+     * 4.1é”ç”±å½“å‰çº¿ç¨‹è·å¾—
      * <li>The lock is acquired by the current thread; or
-     * 4.2ÆäËûÄ³¸öÏß³ÌÖĞ¶Ïµ±Ç°Ïß³Ì
+     * 4.2å…¶ä»–æŸä¸ªçº¿ç¨‹ä¸­æ–­å½“å‰çº¿ç¨‹
      * <li>Some other thread {@linkplain Thread#interrupt interrupts} the
      * current thread.
      *
      * </ul>
-     * 5.Èç¹ûµ±Ç°Ïß³Ì»ñµÃ¸ÃËø£¬Ôò½«Ëø±£³Ö¼ÆÊıÉèÖÃÎª 1,Èç¹ûµ±Ç°Ïß³Ì³öÏÖÁ½ÖÖÇé¿öÔòÅ×³ö InterruptedException£¬²¢ÇÒÇå³ıµ±Ç°Ïß³ÌµÄÒÑÖĞ¶Ï×´Ì¬¡£
+     * 5.å¦‚æœå½“å‰çº¿ç¨‹è·å¾—è¯¥é”ï¼Œåˆ™å°†é”ä¿æŒè®¡æ•°è®¾ç½®ä¸º 1,å¦‚æœå½“å‰çº¿ç¨‹å‡ºç°ä¸¤ç§æƒ…å†µåˆ™æŠ›å‡º InterruptedExceptionï¼Œå¹¶ä¸”æ¸…é™¤å½“å‰çº¿ç¨‹çš„å·²ä¸­æ–­çŠ¶æ€ã€‚
      * <p>If the lock is acquired by the current thread then the lock hold
      * count is set to one.
      *
      * <p>If the current thread:
      *
      * <ul>
-     * 5.1ÔÚ½øÈë´Ë·½·¨Ê±ÒÑ¾­ÉèÖÃÁË¸ÃÏß³ÌµÄÖĞ¶Ï×´Ì¬
+     * 5.1åœ¨è¿›å…¥æ­¤æ–¹æ³•æ—¶å·²ç»è®¾ç½®äº†è¯¥çº¿ç¨‹çš„ä¸­æ–­çŠ¶æ€
      * <li>has its interrupted status set on entry to this method; or
-     * 5.2ÔÚµÈ´ı»ñÈ¡ËøµÄÍ¬Ê±±»ÖĞ¶Ï
+     * 5.2åœ¨ç­‰å¾…è·å–é”çš„åŒæ—¶è¢«ä¸­æ–­
      * <li>is {@linkplain Thread#interrupt interrupted} while acquiring
      * the lock,
      *
@@ -329,18 +329,18 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * then {@link InterruptedException} is thrown and the current thread's
      * interrupted status is cleared.
-     * 6.ÔÚ´ËÊµÏÖÖĞ£¬ÒòÎª´Ë·½·¨ÊÇÒ»¸öÏÔÊ½ÖĞ¶Ïµã£¬ËùÒÔÒªÓÅÏÈ¿¼ÂÇÏìÓ¦ÖĞ¶Ï£¬¶ø²»ÊÇÏìÓ¦ËøµÄÆÕÍ¨»ñÈ¡»òÖØÈë»ñÈ¡
+     * 6.åœ¨æ­¤å®ç°ä¸­ï¼Œå› ä¸ºæ­¤æ–¹æ³•æ˜¯ä¸€ä¸ªæ˜¾å¼ä¸­æ–­ç‚¹ï¼Œæ‰€ä»¥è¦ä¼˜å…ˆè€ƒè™‘å“åº”ä¸­æ–­ï¼Œè€Œä¸æ˜¯å“åº”é”çš„æ™®é€šè·å–æˆ–é‡å…¥è·å–
      * <p>In this implementation, as this method is an explicit
      * interruption point, preference is given to responding to the
      * interrupt over normal or reentrant acquisition of the lock.
      *
      * @throws InterruptedException if the current thread is interrupted
-     * -- Èç¹ûµ±Ç°Ïß³ÌÎ´±»ÖĞ¶Ï£¬»ñÈ¡Ëø
+     * -- å¦‚æœå½“å‰çº¿ç¨‹æœªè¢«ä¸­æ–­ï¼Œè·å–é”
      */
 	/**
-	 * lockInterruptibly()·½·¨ÄÜ¹»ÖĞ¶ÏµÈ´ı»ñÈ¡ËøµÄÏß³Ì¡£
-	 * µ±Á½¸öÏß³ÌÍ¬Ê±Í¨¹ılock.lockInterruptibly()»ñÈ¡Ä³¸öËøÊ±£¬¼ÙÈô´ËÊ±Ïß³ÌA»ñÈ¡µ½ÁËËø£¬¶øÏß³ÌBÖ»ÓĞµÈ´ı£¬
-	 * ÄÇÃ´¶ÔÏß³ÌBµ÷ÓÃthreadB.interrupt()·½·¨ÄÜ¹»ÖĞ¶ÏÏß³ÌBµÄµÈ´ı¹ı³Ì¡£
+	 * lockInterruptibly()æ–¹æ³•èƒ½å¤Ÿä¸­æ–­ç­‰å¾…è·å–é”çš„çº¿ç¨‹ã€‚
+	 * å½“ä¸¤ä¸ªçº¿ç¨‹åŒæ—¶é€šè¿‡lock.lockInterruptibly()è·å–æŸä¸ªé”æ—¶ï¼Œå‡è‹¥æ­¤æ—¶çº¿ç¨‹Aè·å–åˆ°äº†é”ï¼Œè€Œçº¿ç¨‹Båªæœ‰ç­‰å¾…ï¼Œ
+	 * é‚£ä¹ˆå¯¹çº¿ç¨‹Bè°ƒç”¨threadB.interrupt()æ–¹æ³•èƒ½å¤Ÿä¸­æ–­çº¿ç¨‹Bçš„ç­‰å¾…è¿‡ç¨‹ã€‚
 	 */
     public void lockInterruptibly() throws InterruptedException {
         sync.acquireInterruptibly(1);
@@ -349,12 +349,12 @@ public class ReentrantLock implements Lock, java.io.Serializable {
     /**
      * 
      * Acquires the lock only if it is not held by another thread at the time
-     * of invocation.½öÔÚµ÷ÓÃÊ±ËøÎ´±»ÁíÒ»¸öÏß³Ì±£³ÖµÄÇé¿öÏÂ£¬²Å»ñÈ¡¸ÃËø¡£ 
-     * 1£©Èç¹û¸ÃËøÃ»ÓĞ±»ÁíÒ»¸öÏß³Ì±£³Ö£¬²¢ÇÒÁ¢¼´·µ»Ø true Öµ£¬Ôò½«ËøµÄ±£³Ö¼ÆÊıÉèÖÃÎª 1¡£
-     * ¼´Ê¹ÒÑ½«´ËËøÉèÖÃÎªÊ¹ÓÃ¹«Æ½ÅÅĞò²ßÂÔ£¬µ«ÊÇµ÷ÓÃ tryLock() ÈÔ½« Á¢¼´»ñÈ¡Ëø£¨Èç¹ûÓĞ¿ÉÓÃµÄ£©£¬
-     * ¶ø²»¹ÜÆäËûÏß³Ìµ±Ç°ÊÇ·ñÕıÔÚµÈ´ı¸ÃËø¡£ÔÚÄ³Ğ©Çé¿öÏÂ£¬´Ë¡°´³Èë¡±ĞĞÎª¿ÉÄÜºÜÓĞÓÃ£¬¼´Ê¹Ëü»á´òÆÆ¹«
-     * Æ½ĞÔÒ²Èç´Ë¡£Èç¹ûÏ£Íû×ñÊØ´ËËøµÄ¹«Æ½ÉèÖÃ£¬ÔòÊ¹ÓÃ tryLock(0, TimeUnit.SECONDS) 
-     * £¬Ëü¼¸ºõÊÇµÈĞ§µÄ£¨Ò²¼ì²âÖĞ¶Ï£©
+     * of invocation.ä»…åœ¨è°ƒç”¨æ—¶é”æœªè¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿æŒçš„æƒ…å†µä¸‹ï¼Œæ‰è·å–è¯¥é”ã€‚ 
+     * 1ï¼‰å¦‚æœè¯¥é”æ²¡æœ‰è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿æŒï¼Œå¹¶ä¸”ç«‹å³è¿”å› true å€¼ï¼Œåˆ™å°†é”çš„ä¿æŒè®¡æ•°è®¾ç½®ä¸º 1ã€‚
+     * å³ä½¿å·²å°†æ­¤é”è®¾ç½®ä¸ºä½¿ç”¨å…¬å¹³æ’åºç­–ç•¥ï¼Œä½†æ˜¯è°ƒç”¨ tryLock() ä»å°† ç«‹å³è·å–é”ï¼ˆå¦‚æœæœ‰å¯ç”¨çš„ï¼‰ï¼Œ
+     * è€Œä¸ç®¡å…¶ä»–çº¿ç¨‹å½“å‰æ˜¯å¦æ­£åœ¨ç­‰å¾…è¯¥é”ã€‚åœ¨æŸäº›æƒ…å†µä¸‹ï¼Œæ­¤â€œé—¯å…¥â€è¡Œä¸ºå¯èƒ½å¾ˆæœ‰ç”¨ï¼Œå³ä½¿å®ƒä¼šæ‰“ç ´å…¬
+     * å¹³æ€§ä¹Ÿå¦‚æ­¤ã€‚å¦‚æœå¸Œæœ›éµå®ˆæ­¤é”çš„å…¬å¹³è®¾ç½®ï¼Œåˆ™ä½¿ç”¨ tryLock(0, TimeUnit.SECONDS) 
+     * ï¼Œå®ƒå‡ ä¹æ˜¯ç­‰æ•ˆçš„ï¼ˆä¹Ÿæ£€æµ‹ä¸­æ–­ï¼‰
      * <p>Acquires the lock if it is not held by another thread and
      * returns immediately with the value {@code true}, setting the
      * lock hold count to one. Even when this lock has been set to use a
@@ -366,13 +366,13 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * the fairness setting for this lock, then use
      * {@link #tryLock(long, TimeUnit) tryLock(0, TimeUnit.SECONDS) }
      * which is almost equivalent (it also detects interruption).
-     * 2£©Èç¹ûµ±Ç°Ïß³ÌÒÑ¾­±£³Ö´ËËø£¬Ôò½«±£³Ö¼ÆÊı¼Ó 1£¬¸Ã·½·¨½«·µ»Ø true¡£ 
+     * 2ï¼‰å¦‚æœå½“å‰çº¿ç¨‹å·²ç»ä¿æŒæ­¤é”ï¼Œåˆ™å°†ä¿æŒè®¡æ•°åŠ  1ï¼Œè¯¥æ–¹æ³•å°†è¿”å› trueã€‚ 
      * <p>If the current thread already holds this lock then the hold
      * count is incremented by one and the method returns {@code true}.
-     * 3£©Èç¹ûËø±»ÁíÒ»¸öÏß³Ì±£³Ö£¬Ôò´Ë·½·¨½«Á¢¼´·µ»Ø false Öµ¡£ 
+     * 3ï¼‰å¦‚æœé”è¢«å¦ä¸€ä¸ªçº¿ç¨‹ä¿æŒï¼Œåˆ™æ­¤æ–¹æ³•å°†ç«‹å³è¿”å› false å€¼ã€‚ 
      * <p>If the lock is held by another thread then this method will return
      * immediately with the value {@code false}.
-     * return£ºÈç¹ûËøÊÇ×ÔÓÉµÄ²¢ÇÒ±»µ±Ç°Ïß³Ì»ñÈ¡£¬»òÕßµ±Ç°Ïß³ÌÒÑ¾­±£³Ö¸ÃËø£¬Ôò·µ»Ø true£»·ñÔò·µ»Ø false
+     * returnï¼šå¦‚æœé”æ˜¯è‡ªç”±çš„å¹¶ä¸”è¢«å½“å‰çº¿ç¨‹è·å–ï¼Œæˆ–è€…å½“å‰çº¿ç¨‹å·²ç»ä¿æŒè¯¥é”ï¼Œåˆ™è¿”å› trueï¼›å¦åˆ™è¿”å› false
      * @return {@code true} if the lock was free and was acquired by the
      *         current thread, or the lock was already held by the current
      *         thread; and {@code false} otherwise
@@ -544,7 +544,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return the number of holds on this lock by the current thread,
      *         or zero if this lock is not held by the current thread
-     * - ²éÑ¯µ±Ç°Ïß³Ì±£³Ö´ËËøµÄ´ÎÊı£¬Ò²¾ÍÊÇÖ´ĞĞ´ËÏß³ÌÖ´ĞĞlock·½·¨µÄ´ÎÊı
+     * - æŸ¥è¯¢å½“å‰çº¿ç¨‹ä¿æŒæ­¤é”çš„æ¬¡æ•°ï¼Œä¹Ÿå°±æ˜¯æ‰§è¡Œæ­¤çº¿ç¨‹æ‰§è¡Œlockæ–¹æ³•çš„æ¬¡æ•°
      */
     public int getHoldCount() {
         return sync.getHoldCount();
@@ -590,7 +590,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return {@code true} if current thread holds this lock and
      *         {@code false} otherwise
-     * -- µ±Ç°Ïß³ÌÊÇ·ñ±£³ÖËøËø¶¨£¬Ïß³ÌµÄÖ´ĞĞ lock ·½·¨µÄÇ°ºó·Ö±ğÊÇ false ºÍ true 
+     * -- å½“å‰çº¿ç¨‹æ˜¯å¦ä¿æŒé”é”å®šï¼Œçº¿ç¨‹çš„æ‰§è¡Œ lock æ–¹æ³•çš„å‰ååˆ†åˆ«æ˜¯ false å’Œ true 
      */
     public boolean isHeldByCurrentThread() {
         return sync.isHeldExclusively();
@@ -603,7 +603,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return {@code true} if any thread holds this lock and
      *         {@code false} otherwise
-     * --- ´ËËøÊÇ·ñÓĞÈÎÒâÏß³ÌÕ¼ÓÃ
+     * --- æ­¤é”æ˜¯å¦æœ‰ä»»æ„çº¿ç¨‹å ç”¨
      */
     public boolean isLocked() {
         return sync.isLocked();
@@ -613,7 +613,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * Returns {@code true} if this lock has fairness set true.
      *
      * @return {@code true} if this lock has fairness set true
-     * -- ¸ÃËøÊÇ·ñÊÇ¹«Æ½Ëø
+     * -- è¯¥é”æ˜¯å¦æ˜¯å…¬å¹³é”
      */
     public final boolean isFair() {
         return sync instanceof FairSync;
@@ -645,7 +645,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      *
      * @return {@code true} if there may be other threads waiting to
      *         acquire the lock
-     * -- ÊÇ·ñÓĞÏß³ÌµÈ´ıËø
+     * -- æ˜¯å¦æœ‰çº¿ç¨‹ç­‰å¾…é”
      */
     public final boolean hasQueuedThreads() {
         return sync.hasQueuedThreads();
@@ -661,7 +661,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @param thread the thread
      * @return {@code true} if the given thread is queued waiting for this lock
      * @throws NullPointerException if the thread is null
-     * -- ²éÑ¯¸ø¶¨Ïß³ÌÊÇ·ñµÈ´ı»ñÈ¡´ËËø
+     * -- æŸ¥è¯¢ç»™å®šçº¿ç¨‹æ˜¯å¦ç­‰å¾…è·å–æ­¤é”
      */
     public final boolean hasQueuedThread(Thread thread) {
         return sync.isQueued(thread);
@@ -674,7 +674,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * internal data structures.  This method is designed for use in
      * monitoring of the system state, not for synchronization
      * control.
-     * -- ·µ»ØÕıµÈ´ı»ñÈ¡´ËËøµÄÏß³Ì¹À¼ÆÊı£¬±ÈÈçÆô¶¯ 10 ¸öÏß³Ì£¬1 ¸öÏß³Ì»ñµÃËø£¬´ËÊ±·µ»ØµÄÊÇ 9
+     * -- è¿”å›æ­£ç­‰å¾…è·å–æ­¤é”çš„çº¿ç¨‹ä¼°è®¡æ•°ï¼Œæ¯”å¦‚å¯åŠ¨ 10 ä¸ªçº¿ç¨‹ï¼Œ1 ä¸ªçº¿ç¨‹è·å¾—é”ï¼Œæ­¤æ—¶è¿”å›çš„æ˜¯ 9
      *
      * @return the estimated number of threads waiting for this lock
      */
@@ -711,8 +711,8 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @throws IllegalArgumentException if the given condition is
      *         not associated with this lock
      * @throws NullPointerException if the condition is null
-     * -- ²éÑ¯ÊÇ·ñÓĞÏß³ÌµÈ´ıÓë´ËËøÓĞ¹ØµÄ¸ø¶¨Ìõ¼ş
-     * -- (condition)£¬¶ÔÓÚÖ¸¶¨ contidion ¶ÔÏó£¬ÓĞ¶àÉÙÏß³ÌÖ´ĞĞÁË condition.await ·½·¨
+     * -- æŸ¥è¯¢æ˜¯å¦æœ‰çº¿ç¨‹ç­‰å¾…ä¸æ­¤é”æœ‰å…³çš„ç»™å®šæ¡ä»¶
+     * -- (condition)ï¼Œå¯¹äºæŒ‡å®š contidion å¯¹è±¡ï¼Œæœ‰å¤šå°‘çº¿ç¨‹æ‰§è¡Œäº† condition.await æ–¹æ³•
 
      */
     public boolean hasWaiters(Condition condition) {
@@ -737,9 +737,9 @@ public class ReentrantLock implements Lock, java.io.Serializable {
      * @throws IllegalArgumentException if the given condition is
      *         not associated with this lock
      * @throws NullPointerException if the condition is null
-     * -- ·µ»ØµÈ´ıÓë´ËËøÏà¹ØµÄ¸ø¶¨Ìõ¼şµÄÏß³Ì¹À¼ÆÊı¡£
-     * -- ±ÈÈç 10 ¸öÏß³Ì£¬ÓÃÍ¬Ò»¸ö condition ¶ÔÏó£¬
-     * -- ²¢ÇÒ´ËÊ±Õâ 10 ¸öÏß³Ì¶¼Ö´ĞĞÁË condition ¶ÔÏóµÄ await ·½·¨£¬ÄÇÃ´´ËÊ±Ö´ĞĞ´Ë·½·¨·µ»Ø 10 
+     * -- è¿”å›ç­‰å¾…ä¸æ­¤é”ç›¸å…³çš„ç»™å®šæ¡ä»¶çš„çº¿ç¨‹ä¼°è®¡æ•°ã€‚
+     * -- æ¯”å¦‚ 10 ä¸ªçº¿ç¨‹ï¼Œç”¨åŒä¸€ä¸ª condition å¯¹è±¡ï¼Œ
+     * -- å¹¶ä¸”æ­¤æ—¶è¿™ 10 ä¸ªçº¿ç¨‹éƒ½æ‰§è¡Œäº† condition å¯¹è±¡çš„ await æ–¹æ³•ï¼Œé‚£ä¹ˆæ­¤æ—¶æ‰§è¡Œæ­¤æ–¹æ³•è¿”å› 10 
      */
     public int getWaitQueueLength(Condition condition) {
         if (condition == null)

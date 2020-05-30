@@ -185,7 +185,7 @@ class Thread implements Runnable {
     /*
     * InheritableThreadLocal values pertaining to this thread. This map is
     * maintained by the InheritableThreadLocal class.
-    * ¸¸Ïß³ÌÄÑµÀ×ÓÏß³Ì¹²ÏíµÄÊı¾İ
+    * çˆ¶çº¿ç¨‹éš¾é“å­çº¿ç¨‹å…±äº«çš„æ•°æ®
     */
     ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
 
@@ -225,6 +225,7 @@ class Thread implements Runnable {
      * java.util.concurrent.locks.LockSupport.park.
      * Set by (private) java.util.concurrent.locks.LockSupport.setBlocker
      * Accessed using java.util.concurrent.locks.LockSupport.getBlocker
+     * ç”¨æ¥è®°å½•çº¿ç¨‹è¢«é˜»å¡æ—¶è¢«è°é˜»å¡ï¼Œç”¨äºçº¿ç¨‹ç›‘æ§å’Œåˆ†æå·¥å…·å®šä½åŸå› ï¼ˆLockSupport.getBlockerï¼‰
      */
     volatile Object parkBlocker;
 
@@ -372,10 +373,10 @@ class Thread implements Runnable {
         }
 
         this.name = name;
-        //µ±Ç°Ïß³Ì×÷Îª¸ÃÏß³ÌµÄ¸¸Ïß³Ì
+        //å½“å‰çº¿ç¨‹ä½œä¸ºè¯¥çº¿ç¨‹çš„çˆ¶çº¿ç¨‹
         Thread parent = currentThread();
         SecurityManager security = System.getSecurityManager();
-        //Ïß³Ì×éµÄ»ñÈ¡£ºÈç¹û´«ÈëµÄ²ÎÊıÎª¿ÕÊ×ÏÈ»ñÈ¡ÏµÍ³Ä¬ÈÏµÄ°²È«×é£¬Èç¹ûÎª¿Õ»ñÈ¡¸¸Ïß³ÌµÄ°²È«×é
+        //çº¿ç¨‹ç»„çš„è·å–ï¼šå¦‚æœä¼ å…¥çš„å‚æ•°ä¸ºç©ºé¦–å…ˆè·å–ç³»ç»Ÿé»˜è®¤çš„å®‰å…¨ç»„ï¼Œå¦‚æœä¸ºç©ºè·å–çˆ¶çº¿ç¨‹çš„å®‰å…¨ç»„
         if (g == null) {
             /* Determine if it's an applet or not */
 
@@ -408,7 +409,7 @@ class Thread implements Runnable {
         g.addUnstarted();
 
         this.group = g;
-        //ÉèÖÃdaemon ¡¢priority ÊôĞÔÎª¸¸Ïß³Ì¶ÔÓ¦µÄÖµ
+        //è®¾ç½®daemon ã€priority å±æ€§ä¸ºçˆ¶çº¿ç¨‹å¯¹åº”çš„å€¼
         this.daemon = parent.isDaemon();
         this.priority = parent.getPriority();
         if (security == null || isCCLOverridden(parent.getClass()))
@@ -419,7 +420,7 @@ class Thread implements Runnable {
                 acc != null ? acc : AccessController.getContext();
         this.target = target;
         setPriority(priority);
-        //½«¸¸Ïß³ÌµÄInheritableThreadLocal¸´ÖÆ¹ıÀ´
+        //å°†çˆ¶çº¿ç¨‹çš„InheritableThreadLocalå¤åˆ¶è¿‡æ¥
         if (inheritThreadLocals && parent.inheritableThreadLocals != null)
             this.inheritableThreadLocals =
                 ThreadLocal.createInheritedMap(parent.inheritableThreadLocals);
@@ -427,7 +428,7 @@ class Thread implements Runnable {
         this.stackSize = stackSize;
 
         /* Set thread ID */
-        //Éú³ÉÏß³Ìid£¨Ò»¸ölongĞÍµÄ×Ö¶ÎthreadSeqNumber£©
+        //ç”Ÿæˆçº¿ç¨‹idï¼ˆä¸€ä¸ªlongå‹çš„å­—æ®µthreadSeqNumberï¼‰
         tid = nextThreadID();
     }
 
@@ -941,14 +942,14 @@ class Thread implements Runnable {
      * interrupted again, after the first call had cleared its interrupted
      * status and before the second call had examined it).
      * 
-     * 1. ²âÊÔµ±Ç°Ïß³ÌÊÇ·ñ±»ÖĞ¶Ï
-     * 2. Ö´ĞĞ¸Ã·½·¨Ö®ºó»áÇå³şµ±Ç°Ïß³ÌµÄÖØµã×´Ì¬¡£
+     * 1. æµ‹è¯•å½“å‰çº¿ç¨‹æ˜¯å¦è¢«ä¸­æ–­
+     * 2. æ‰§è¡Œè¯¥æ–¹æ³•ä¹‹åä¼šæ¸…æ¥šå½“å‰çº¿ç¨‹çš„é‡ç‚¹çŠ¶æ€ã€‚
      *
      * <p>A thread interruption ignored because a thread was not alive
      * at the time of the interrupt will be reflected by this method
      * returning false.
      * 
-     * 3. Èç¹ûÖĞ¶ÏÒ»¸öÒÑ¾­²»»îÔ¾µÄÏß³Ì£¬Ôò·µ»Øfalse
+     * 3. å¦‚æœä¸­æ–­ä¸€ä¸ªå·²ç»ä¸æ´»è·ƒçš„çº¿ç¨‹ï¼Œåˆ™è¿”å›false
      *
      * @return  <code>true</code> if the current thread has been interrupted;
      *          <code>false</code> otherwise.
@@ -963,13 +964,13 @@ class Thread implements Runnable {
      * Tests whether this thread has been interrupted.  The <i>interrupted
      * status</i> of the thread is unaffected by this method.
      * 
-     * 1. ²âÊÔÏß³ÌÊÇ·ñ±»ÖĞ¶Ï£¬¸Ã·½·¨²»»áÇå³ıÖĞ¶Ï×´Ì¬
+     * 1. æµ‹è¯•çº¿ç¨‹æ˜¯å¦è¢«ä¸­æ–­ï¼Œè¯¥æ–¹æ³•ä¸ä¼šæ¸…é™¤ä¸­æ–­çŠ¶æ€
      *
      * <p>A thread interruption ignored because a thread was not alive
      * at the time of the interrupt will be reflected by this method
      * returning false.
      * 
-     * 2. Èç¹ûÖĞ¶ÏÒ»¸öÒÑ¾­²»»îÔ¾µÄÏß³Ì£¬Ôò·µ»Øfalse
+     * 2. å¦‚æœä¸­æ–­ä¸€ä¸ªå·²ç»ä¸æ´»è·ƒçš„çº¿ç¨‹ï¼Œåˆ™è¿”å›false
      *
      * @return  <code>true</code> if this thread has been interrupted;
      *          <code>false</code> otherwise.

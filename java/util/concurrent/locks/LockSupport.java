@@ -120,6 +120,15 @@ import sun.misc.Unsafe;
 public class LockSupport {
     private LockSupport() {} // Cannot be instantiated.
 
+    /**
+     * TODO:
+     * @author sunliaodong
+     * @param t 需要被赋予Blocker的线程
+     * @param arg 具体的Blocker对象
+     * @return void
+     * @throws
+     * @date 2020/5/29 8:56
+     */
     private static void setBlocker(Thread t, Object arg) {
         // Even though volatile, hotspot doesn't need a write barrier here.
         UNSAFE.putObject(t, parkBlockerOffset, arg);
@@ -279,6 +288,7 @@ public class LockSupport {
      * Disables the current thread for thread scheduling purposes unless the
      * permit is available.
      *
+     *
      * <p>If the permit is available then it is consumed and the call
      * returns immediately; otherwise the current thread becomes disabled
      * for thread scheduling purposes and lies dormant until one of three
@@ -392,14 +402,20 @@ public class LockSupport {
 
     // Hotspot implementation via intrinsics API
     private static final sun.misc.Unsafe UNSAFE;
+    // parkBlocker的偏移量，与Thread中的定义有关（volatile Object parkBlocker;）
+    // parkBlocker用来记录线程被谁阻塞，可以通过LockSupport.getBlocker获取阻塞的对象
     private static final long parkBlockerOffset;
     private static final long SEED;
     private static final long PROBE;
     private static final long SECONDARY;
     static {
         try {
+            /**
+             * JDK内部类，大部分方式都是native定义
+             */
             UNSAFE = sun.misc.Unsafe.getUnsafe();
             Class<?> tk = Thread.class;
+            // 记录了parkBlocker在内存中的偏移量，只有在线程被阻塞时才会被真正赋值：setBlocker
             parkBlockerOffset = UNSAFE.objectFieldOffset
                 (tk.getDeclaredField("parkBlocker"));
             SEED = UNSAFE.objectFieldOffset

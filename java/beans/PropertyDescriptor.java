@@ -214,6 +214,9 @@ public class PropertyDescriptor extends FeatureDescriptor {
             String nextMethodName = Introspector.GET_PREFIX + getBaseName();
             if (readMethodName == null) {
                 Class<?> type = getPropertyType0();
+                /**
+                 * TODO: 基本类型，boolean需要使用is前缀方法读取数据
+                 */
                 if (type == boolean.class || type == null) {
                     readMethodName = Introspector.IS_PREFIX + getBaseName();
                 } else {
