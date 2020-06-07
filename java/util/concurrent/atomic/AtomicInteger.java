@@ -55,16 +55,21 @@ public class AtomicInteger extends Number implements java.io.Serializable {
     private static final long serialVersionUID = 6214790243416807050L;
 
     // setup to use Unsafe.compareAndSwapInt for updates
+    /**
+     * 使用Unsafe.compareAndSwapInt处理数据
+     */
     private static final Unsafe unsafe = Unsafe.getUnsafe();
     private static final long valueOffset;
 
     static {
         try {
+            // 使用unsafe设置数据value的偏移地址
             valueOffset = unsafe.objectFieldOffset
                 (AtomicInteger.class.getDeclaredField("value"));
         } catch (Exception ex) { throw new Error(ex); }
     }
 
+    // 保证内存可见性和禁止指令重排序
     private volatile int value;
 
     /**

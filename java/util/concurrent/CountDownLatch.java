@@ -170,6 +170,7 @@ public class CountDownLatch {
         }
 
         protected int tryAcquireShared(int acquires) {
+            // 只要state！=0，调用await（）方法的线程便会被放入AQS的阻塞队列，进入阻塞状态
             return (getState() == 0) ? 1 : -1;
         }
 

@@ -255,8 +255,11 @@ public class ReentrantReadWriteLock
         /*
          * Read vs write count extraction constants and functions.
          * Lock state is logically divided into two unsigned shorts:
+         * 锁状态被拆分成两种无符号状态，高位16和低16
          * The lower one representing the exclusive (writer) lock hold count,
          * and the upper the shared (reader) hold count.
+         * 高位16：记录读锁，可以表示n个线程获取锁或一个线程重入n次
+         * 低位16：记录写锁，一个线程重入n次（写锁互斥，所以只能一个线程独占）
          */
 
         static final int SHARED_SHIFT   = 16;
@@ -265,8 +268,10 @@ public class ReentrantReadWriteLock
         static final int EXCLUSIVE_MASK = (1 << SHARED_SHIFT) - 1;
 
         /** Returns the number of shared holds represented in count  */
+        // 读锁重入次数
         static int sharedCount(int c)    { return c >>> SHARED_SHIFT; }
         /** Returns the number of exclusive holds represented in count  */
+        // 写锁重入次数
         static int exclusiveCount(int c) { return c & EXCLUSIVE_MASK; }
 
         /**

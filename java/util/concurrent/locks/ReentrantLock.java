@@ -129,12 +129,14 @@ public class ReentrantLock implements Lock, java.io.Serializable {
         final boolean nonfairTryAcquire(int acquires) {
             final Thread current = Thread.currentThread();
             int c = getState();
-            if (c == 0) {
+            if (c == 0) {// 无锁情况下，进行抢锁
                 if (compareAndSetState(0, acquires)) {
+                    // 获取到锁，星期设置当前线程获取该锁
                     setExclusiveOwnerThread(current);
                     return true;
                 }
             }
+            //重入，只需要更新state
             else if (current == getExclusiveOwnerThread()) {
                 int nextc = c + acquires;
                 if (nextc < 0) // overflow
@@ -147,6 +149,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
 
         protected final boolean tryRelease(int releases) {
             int c = getState() - releases;
+            // 排它锁实现，否则抛出异常IllegalMonitorStateException
             if (Thread.currentThread() != getExclusiveOwnerThread())
                 throw new IllegalMonitorStateException();
             boolean free = false;
@@ -154,6 +157,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
                 free = true;
                 setExclusiveOwnerThread(null);
             }
+            // 由于排它锁实现，所以不需要使用cas
             setState(c);
             return free;
         }
@@ -203,6 +207,9 @@ public class ReentrantLock implements Lock, java.io.Serializable {
          * acquire on failure.
          */
         final void lock() {
+            /**
+             * 直接尝试获取锁，不考虑队列中是否存在其他线程
+             */
             if (compareAndSetState(0, 1))
                 setExclusiveOwnerThread(Thread.currentThread());
             else
@@ -232,6 +239,8 @@ public class ReentrantLock implements Lock, java.io.Serializable {
             final Thread current = Thread.currentThread();
             int c = getState();
             if (c == 0) {
+                // 只有当c==0（没有线程持有锁），并且排在队列的第1个时（即当队列中没有其他线程的时候），
+                // 才去抢锁，否则继续排队
                 if (!hasQueuedPredecessors() &&
                     compareAndSetState(0, acquires)) {
                     setExclusiveOwnerThread(current);

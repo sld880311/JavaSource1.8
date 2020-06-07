@@ -155,8 +155,10 @@ public class CyclicBarrier {
     /** The lock for guarding barrier entry */
     private final ReentrantLock lock = new ReentrantLock();
     /** Condition to wait on until tripped */
+    // 用于线程之间互相唤醒
     private final Condition trip = lock.newCondition();
     /** The number of parties */
+    // 总线程数
     private final int parties;
     /* The command to run when tripped */
     private final Runnable barrierCommand;
@@ -206,19 +208,22 @@ public class CyclicBarrier {
             if (g.broken)
                 throw new BrokenBarrierException();
 
-            if (Thread.interrupted()) {
-                breakBarrier();
+            if (Thread.interrupted()) {// 响应中断
+                breakBarrier();//唤醒所有被阻塞线程
                 throw new InterruptedException();
             }
 
+            // 每个线程调用一次await则执行一次--count，当count==0时则唤醒其他所有线程
             int index = --count;
             if (index == 0) {  // tripped
                 boolean ranAction = false;
                 try {
                     final Runnable command = barrierCommand;
-                    if (command != null)
+                    if (command != null)// 一起唤醒之后可以执行一次回调
                         command.run();
                     ranAction = true;
+                    // 可重用
+                    // 唤醒其他所有线程，并且复原count
                     nextGeneration();
                     return 0;
                 } finally {
@@ -228,10 +233,10 @@ public class CyclicBarrier {
             }
 
             // loop until tripped, broken, interrupted, or timed out
-            for (;;) {
+            for (;;) {// count！=0的处理，需要阻塞自己
                 try {
                     if (!timed)
-                        trip.await();
+                        trip.await();//阻塞自己的时候释放锁，别的线程就可以执行该方法
                     else if (nanos > 0L)
                         nanos = trip.awaitNanos(nanos);
                 } catch (InterruptedException ie) {

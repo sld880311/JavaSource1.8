@@ -44,7 +44,7 @@ import java.util.function.Supplier;
  * class; use of identity-sensitive operations (including reference equality
  * ({@code ==}), identity hash code, or synchronization) on instances of
  * {@code Optional} may have unpredictable results and should be avoided.
- *
+ * 在JDK1.8之后提供了一种用于为空判断的方式
  * @since 1.8
  */
 public final class Optional<T> {
