@@ -90,12 +90,19 @@ public class FutureTask<V> implements RunnableFuture<V> {
      * NEW -> INTERRUPTING -> INTERRUPTED
      */
     private volatile int state;
+//    初始状态
     private static final int NEW          = 0;
+//    执行中状态
     private static final int COMPLETING   = 1;
+//    正常运行结束状态
     private static final int NORMAL       = 2;
+//    运行中异常
     private static final int EXCEPTIONAL  = 3;
+//    任务被取消
     private static final int CANCELLED    = 4;
+//    任务正在被中断
     private static final int INTERRUPTING = 5;
+//    任务已经被中断
     private static final int INTERRUPTED  = 6;
 
     /** The underlying callable; nulled out after running */
@@ -149,6 +156,7 @@ public class FutureTask<V> implements RunnableFuture<V> {
      * @throws NullPointerException if the runnable is null
      */
     public FutureTask(Runnable runnable, V result) {
+//        通过适配器把runnable转换成callable
         this.callable = Executors.callable(runnable, result);
         this.state = NEW;       // ensure visibility of callable
     }

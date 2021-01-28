@@ -191,6 +191,10 @@ public class ScheduledThreadPoolExecutor
          * value indicates fixed-rate execution.  A negative value
          * indicates fixed-delay execution.  A value of 0 indicates a
          * non-repeating task.
+         * 表示任务类型
+         * 0：当前任务是一次性任务，执行完毕后直接退出
+         * 负数：当前任务是fixed-delay任务，固定延迟的定时可重复执行任务
+         * 整数：当前任务是fixed-rate任务，固定频率的定时可重复执行任务
          */
         private final long period;
 
@@ -228,10 +232,11 @@ public class ScheduledThreadPoolExecutor
         ScheduledFutureTask(Callable<V> callable, long ns) {
             super(callable);
             this.time = ns;
-            this.period = 0;
+            this.period = 0; // 一次性任务
             this.sequenceNumber = sequencer.getAndIncrement();
         }
 
+//        元素过期算法，装饰后时间-当前时间，就是即将过期剩余时间
         public long getDelay(TimeUnit unit) {
             return unit.convert(time - now(), NANOSECONDS);
         }
@@ -495,6 +500,7 @@ public class ScheduledThreadPoolExecutor
 
     /**
      * Returns the trigger time of a delayed action.
+     * 获取绝对时间
      */
     long triggerTime(long delay) {
         return now() +
@@ -530,6 +536,7 @@ public class ScheduledThreadPoolExecutor
         RunnableScheduledFuture<?> t = decorateTask(command,
             new ScheduledFutureTask<Void>(command, null,
                                           triggerTime(delay, unit)));
+//        添加任务到延迟队列中
         delayedExecute(t);
         return t;
     }

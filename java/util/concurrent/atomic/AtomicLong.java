@@ -55,6 +55,7 @@ public class AtomicLong extends Number implements java.io.Serializable {
     private static final long serialVersionUID = 1927816293512124184L;
 
     // setup to use Unsafe.compareAndSwapLong for updates
+//    AtomicLong与Unsafe都在rt.jar中，都是使用bootstarp完成类加载，可以直接引用
     private static final Unsafe unsafe = Unsafe.getUnsafe();
     private static final long valueOffset;
 
@@ -64,6 +65,7 @@ public class AtomicLong extends Number implements java.io.Serializable {
      * method works in either case, some constructions should be
      * handled at Java level to avoid locking user-visible locks.
      */
+//    判断JVM中是否支持long类型无锁cas
     static final boolean VM_SUPPORTS_LONG_CAS = VMSupportsCS8();
 
     /**
@@ -79,6 +81,7 @@ public class AtomicLong extends Number implements java.io.Serializable {
         } catch (Exception ex) { throw new Error(ex); }
     }
 
+//    使用volatile修饰，保证在多线程下实际数据的内存可见性
     private volatile long value;
 
     /**

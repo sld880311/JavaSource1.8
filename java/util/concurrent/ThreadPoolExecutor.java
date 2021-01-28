@@ -379,10 +379,11 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
      * below).
      */
 	// 线程池的控制状态（用来表示线程池的运行状态（整形的高3位）和运行的worker数量（低29位））
+//            默认是running状态，并且worker数为0
     private final AtomicInteger ctl = new AtomicInteger(ctlOf(RUNNING, 0));
-    // 29位的偏移量
+    // 29位的偏移量，线程个数掩码位数（具体平台下Integer的二进制（大部分是32位）-3）
     private static final int COUNT_BITS = Integer.SIZE - 3;
-    // 最大容量（2^29 - 1）
+    // 最大容量（2^29 - 1），线程最大个数
     private static final int CAPACITY   = (1 << COUNT_BITS) - 1;
 
     // runState is stored in the high-order bits
@@ -395,6 +396,11 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     * TERMINATED:    terminated钩子函数已经运行完成
     * - 由于有5种状态，最少需要3位表示，所以采用的AtomicInteger的高3位来表示，
     * - 低29位用来表示worker的数量，即最多表示2^29 - 1。
+     * ● RUNNING -> SHUTDOWN ：显式调用shutdown（）方法，或者隐式调用了finalize（）方法里面的shutdown（）方法。
+     * ● RUNNING或SHUTDOWN）-> STOP ：显式调用shutdownNow（）方法时。
+     * ● SHUTDOWN -> TIDYING ：当线程池和任务队列都为空时。
+     * ● STOP -> TIDYING ：当线程池为空时。
+     * ● TIDYING -> TERMINATED：当terminated（）hook方法执行完成时。
     **/
     private static final int RUNNING    = -1 << COUNT_BITS;
     private static final int SHUTDOWN   =  0 << COUNT_BITS;
@@ -403,10 +409,11 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
     private static final int TERMINATED =  3 << COUNT_BITS;
 
     // Packing and unpacking ctl
-    // 状态
+    // 运行状态，获取高3位
     private static int runStateOf(int c)     { return c & ~CAPACITY; }
-    // 数量
+    // 低29位，数量
     private static int workerCountOf(int c)  { return c & CAPACITY; }
+//    计算ctl新值（线程状态与线程个数）
     private static int ctlOf(int rs, int wc) { return rs | wc; }
 
     /*
@@ -939,7 +946,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
         retry:
         for (;;) {// 无限循环
             int c = ctl.get();// 获取线程池控制状态
-            // 获取状态
+            // 获取线程池的运行状态
             int rs = runStateOf(c);
 
             // Check if queue empty only if necessary.
@@ -1206,7 +1213,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
         Thread wt = Thread.currentThread();
         Runnable task = w.firstTask;
         w.firstTask = null;
-        w.unlock(); // allow interrupts
+        w.unlock(); // allow interrupts，将state设置为0，允许中断
         boolean completedAbruptly = true;
         try {
         	// 循环执行，直到阻塞队列为空
@@ -1495,6 +1502,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
             // 线程池不处于RUNNING状态，将命令从workQueue队列中移除
             if (! isRunning(recheck) && remove(command))
                 reject(command); // 拒绝执行命令
+//            如果当前线程池为空，则添加一个线程
             else if (workerCountOf(recheck) == 0)
                 addWorker(null, false);
         }
