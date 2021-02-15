@@ -131,7 +131,7 @@ public class ReentrantLock implements Lock, java.io.Serializable {
             int c = getState();
             if (c == 0) {// 无锁情况下，进行抢锁
                 if (compareAndSetState(0, acquires)) {
-                    // 获取到锁，星期设置当前线程获取该锁
+                    // 获取到锁，设置当前线程获取该锁
                     setExclusiveOwnerThread(current);
                     return true;
                 }
