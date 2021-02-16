@@ -1,4 +1,4 @@
-/*
+ï»¿/*
  * ORACLE PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  *
  *
@@ -229,9 +229,9 @@ public interface Condition {
      *         (and interruption of thread suspension is supported)
      */
 	/**
-	 * µ±Ç°Ïß³Ì½øÈëµÈ´ı×´Ì¬£¬Èç¹ûÆäËûÏß³Ìµ÷ÓÃconditionµÄsignal
-	 * »òÕßsignalAll·½·¨²¢ÇÒµ±Ç°Ïß³Ì»ñÈ¡Lock´Óawait·½·¨·µ»Ø£¬
-	 * Èç¹ûÔÚµÈ´ı×´Ì¬ÖĞ±»ÖĞ¶Ï»áÅ×³ö±»ÖĞ¶ÏÒì³££»
+	 * å½“å‰çº¿ç¨‹è¿›å…¥ç­‰å¾…çŠ¶æ€ï¼Œå¦‚æœå…¶ä»–çº¿ç¨‹è°ƒç”¨conditionçš„signal
+	 * æˆ–è€…signalAllæ–¹æ³•å¹¶ä¸”å½“å‰çº¿ç¨‹è·å–Lockä»awaitæ–¹æ³•è¿”å›ï¼Œ
+	 * å¦‚æœåœ¨ç­‰å¾…çŠ¶æ€ä¸­è¢«ä¸­æ–­ä¼šæŠ›å‡ºè¢«ä¸­æ–­å¼‚å¸¸ï¼›
 	 */
     void await() throws InterruptedException;
 
@@ -269,7 +269,7 @@ public interface Condition {
      * thrown (such as {@link IllegalMonitorStateException}) and the
      * implementation must document that fact.
      */
-    // Í¬await£¬µ«ÊÇ²»ÏìÓ¦ÖĞ¶Ï
+    // åŒawaitï¼Œä½†æ˜¯ä¸å“åº”ä¸­æ–­
     void awaitUninterruptibly();
 
     /**
@@ -362,7 +362,7 @@ public interface Condition {
      *         (and interruption of thread suspension is supported)
      */
     /**
-     * µ±Ç°Ïß³Ì½øÈëµÈ´ı×´Ì¬Ö±µ½±»Í¨Öª£¬ÖĞ¶Ï»òÕß³¬Ê±£»
+     * å½“å‰çº¿ç¨‹è¿›å…¥ç­‰å¾…çŠ¶æ€ç›´åˆ°è¢«é€šçŸ¥ï¼Œä¸­æ–­æˆ–è€…è¶…æ—¶ï¼›
      */
     long awaitNanos(long nanosTimeout) throws InterruptedException;
 
@@ -380,7 +380,7 @@ public interface Condition {
      *         (and interruption of thread suspension is supported)
      */
     /**
-     * Í¬awaitNanos£¬Ö§³Ö×Ô¶¨ÒåÊ±¼ä
+     * åŒawaitNanosï¼Œæ”¯æŒè‡ªå®šä¹‰æ—¶é—´
      */
     boolean await(long time, TimeUnit unit) throws InterruptedException;
 
@@ -460,7 +460,7 @@ public interface Condition {
      *         (and interruption of thread suspension is supported)
      */
     /**
-     * µ±Ç°Ïß³Ì½øÈëµÈ´ı×´Ì¬Ö±µ½±»Í¨Öª£¬ÖĞ¶Ï»òÕßµ½ÁËÄ³¸öÊ±¼ä
+     * å½“å‰çº¿ç¨‹è¿›å…¥ç­‰å¾…çŠ¶æ€ç›´åˆ°è¢«é€šçŸ¥ï¼Œä¸­æ–­æˆ–è€…åˆ°äº†æŸä¸ªæ—¶é—´
      */
     boolean awaitUntil(Date deadline) throws InterruptedException;
 
@@ -481,8 +481,8 @@ public interface Condition {
      * IllegalMonitorStateException} will be thrown.
      */
     /**
-     * »½ĞÑÒ»¸öµÈ´ıÔÚconditionÉÏµÄÏß³Ì£¬½«¸ÃÏß³Ì´ÓµÈ´ı¶ÓÁĞÖĞ×ªÒÆµ½Í¬²½¶ÓÁĞÖĞ£¬
-     * Èç¹ûÔÚÍ¬²½¶ÓÁĞÖĞÄÜ¹»¾ºÕùµ½LockÔò¿ÉÒÔ´ÓµÈ´ı·½·¨ÖĞ·µ»Ø¡£
+     * å”¤é†’ä¸€ä¸ªç­‰å¾…åœ¨conditionä¸Šçš„çº¿ç¨‹ï¼Œå°†è¯¥çº¿ç¨‹ä»ç­‰å¾…é˜Ÿåˆ—ä¸­è½¬ç§»åˆ°åŒæ­¥é˜Ÿåˆ—ä¸­ï¼Œ
+     * å¦‚æœåœ¨åŒæ­¥é˜Ÿåˆ—ä¸­èƒ½å¤Ÿç«äº‰åˆ°Lockåˆ™å¯ä»¥ä»ç­‰å¾…æ–¹æ³•ä¸­è¿”å›ã€‚
      */
     void signal();
 
@@ -503,7 +503,7 @@ public interface Condition {
      * IllegalMonitorStateException} will be thrown.
      */
     /**
-     * »ñÈ¡ËùÓĞµÈ´ıÔÚconditionÉÏµÄÏß³Ì
+     * è·å–æ‰€æœ‰ç­‰å¾…åœ¨conditionä¸Šçš„çº¿ç¨‹
      */
     void signalAll();
 }
